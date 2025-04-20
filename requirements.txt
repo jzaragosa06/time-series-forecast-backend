@@ -1,2 +1,12 @@
 flask
 pandas
+scikit-learn
+flask_cors
+skforecast==0.13.0
+statsmodels
+prophet
+google.generativeai
+ipython
+tabulate
+markdown2
+numpy==1.26.0
