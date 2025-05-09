@@ -3,7 +3,7 @@ import pandas as pd
 from utility import create_time_features
 from utility import prepare_forecast_response_univariate
 from app.services.forecast_uni import evaluate_model_then_forecast_univariate
-
+from app.enums.frequency import Frequency
 def info():
     return jsonify({
         "message": "ts forecast info", 
@@ -11,15 +11,17 @@ def info():
     
     
 def forecast():
-    freq = request.form.get("freq")
-    description = request.form.get("description")
-    steps = request.form.get("steps")
-    forecastMethod = request.form.get("method")
+    #variable definition
+    df = None
 
-    if freq not in ["D", "M", "Q", "Y"]:
+    frequency = request.form.get("frequency")
+    steps = request.form.get("steps")
+    forecast_method = request.form.get("forecast_method")
+
+    if frequency not in list(Frequency):
         return jsonify({"message": "Format of the index is unsupported"}), 500
 
-    file = request.files["inputFile"]
+    file = request.files["file"]
     if file:
         try:
             df = pd.read_csv(file, index_col=0, parse_dates=True)
@@ -29,7 +31,7 @@ def forecast():
             # fill missing values: forward fill
             df = df.ffill()
             # enforce frequency
-            df = df.asfreq(freq=freq, method="ffill")
+            df = df.asfreq(frequency=frequency, method="ffill")
 
             print(df.head())
 
@@ -38,7 +40,7 @@ def forecast():
             return jsonify({"message": f"Error loading DataFrame: {e}"}), 500
 
         lag = 7
-        exog = create_time_features(df=df, freq=freq)
+        exog = create_time_features(df=df, frequency=frequency)
 
         if forecastMethod == "without_refit":
             # from here, extract the metric, pred_test, pred_out
@@ -46,7 +48,7 @@ def forecast():
                 df_arg=df,
                 exog=exog,
                 lag_value=lag,
-                freq=freq,
+                frequency=frequency,
                 steps_value=int(steps),
                 forecast_method="without_refit",
             )
@@ -55,7 +57,7 @@ def forecast():
             response = prepare_forecast_response_univariate(
                 df_arg=df,
                 tsType=tsType,
-                freq=freq,
+                frequency=frequency,
                 description=description,
                 steps=int(steps),
                 forecastMethod=forecastMethod,
