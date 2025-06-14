@@ -1,1 +1,2 @@
-# Backend API for Automated Time Series Forecasting
+# Backend for Automated Time Series Forecasting
+A capstone project
