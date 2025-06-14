@@ -1,15 +1,16 @@
-from flask import Blueprint
-clean_bp = Blueprint('blueprint',__name__)
+from flask import Blueprint, request
+from app.controllers import preprocessing_controller
+preprocess_bp = Blueprint('blueprint',__name__)
 
-@clean_bp.post('/check-index')
+@preprocess_bp.post('/check-index')
 def check_index():
     return
 
-@clean_bp.post('/check-value')
+@preprocess_bp.post('/check-value')
 def check_value():
     return
 
-@clean_bp.post('/fill-missing')
-def fill_missing():
-    return
+@preprocess_bp.post('/handle-missing-values')
+def handle_missing_value():
+    return preprocessing_controller.handle_missing_value()
 
