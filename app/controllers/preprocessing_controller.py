@@ -3,7 +3,7 @@ from flask import jsonify, request
 import pandas as pd
 
 from app.services.preprocessing_service import drop_missing_values, fill_missing_values
-from app.utility.series import convert_to_list_of_dict
+from app.utility.series import convert_to_flat_dict, convert_to_list_of_dict
 
 
 def handle_missing_value():
@@ -17,7 +17,7 @@ def handle_missing_value():
     if not all([method, series]):
         return jsonify({"message": "The data is malformed"}), 400
 
-    series_flat_dict = {k: v for d in series for k, v in d.items()}
+    series_flat_dict = convert_to_flat_dict(series)
     df = pd.DataFrame.from_dict(series_flat_dict, orient='index', columns=['value'])
     
     if method == "dropna":

@@ -1,6 +1,7 @@
 from flask import jsonify, request, Response, json
 import pandas as pd
 from app.services.forecast_service import forecast_time_series
+from app.utility.series import convert_series_to_list_of_dict, convert_to_flat_dict, convert_to_list_of_dict
 
 def info():
     return jsonify({
@@ -20,7 +21,7 @@ def forecast():
         return jsonify({"message": "The data is malformed"}), 400
 
     #series->DataFrame obj
-    series_flat_dict = {k: v for d in series for k, v in d.items()}
+    series_flat_dict = convert_to_flat_dict(series)
 
     df = pd.DataFrame.from_dict(series_flat_dict, orient='index', columns=['value'])
 
@@ -30,9 +31,8 @@ def forecast():
             {
                 "message": "Forecast run successfully", 
                 "metric": backtest_metric.to_dict(orient="records"), 
-                # "predictions": predictions.to_dict(orient="records"), 
-                "predictions": predictions.to_dict(), 
-                "out_sample_forecast": out_sample_forecast.to_dict(),
+                "in_sample_forecast_test": convert_to_list_of_dict(predictions), 
+                "out_sample_forecast": convert_series_to_list_of_dict(out_sample_forecast),
             }
         ), 200
     except Exception as e:
