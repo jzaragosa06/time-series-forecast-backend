@@ -2,11 +2,15 @@ from flask import Blueprint, request
 from app.controllers import preprocessing_controller
 preprocess_bp = Blueprint('blueprint',__name__)
 
-@preprocess_bp.post('/check-index')
-def check_index():
-    return
+# @preprocess_bp.post('/check-index')
+# def check_index():
+#     return
 
-@preprocess_bp.post('/check-value')
+# @preprocess_bp.post('/check-value')
+# def check_value():
+#     return
+
+@preprocess_bp.post('/check-series')
 def check_value():
     return
 

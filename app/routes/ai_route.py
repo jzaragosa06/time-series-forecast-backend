@@ -1,16 +1,13 @@
 #Run pip install flask-blueprint
 from flask import Blueprint
-ai_bp = Blueprint('ai_bp',__name__)
+from app.controllers import ai_controller
 
-@ai_bp.get('/')
-def ai_info():
-    return
+ai_bp = Blueprint('ai',__name__)
 
 @ai_bp.post('/explain/forecast')
 def explain_forecast():
-    return
+    return ai_controller.explainForecast()
 
-
-@ai_bp.post('/explain/series')
-def explain_series():
-    return
+@ai_bp.get('/explain/test')
+def testGen():
+    return ai_controller.testGenerate()

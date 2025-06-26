@@ -7,7 +7,7 @@ def register_routes(app):
     # app.register_blueprint(system_info_bp, url_prefix="/api/system-info")
     # app.register_blueprint(forecast_bp, url_prefix="/api/forecast")
     # app.register_blueprint(clean_bp, url_prefix="/api/clean")
-    # app.register_blueprint(ai_bp, url_prefix="/api/ai")
+    app.register_blueprint(ai_bp, url_prefix="/api/ai")
     app.register_blueprint(system_info_bp, url_prefix="/api/system-info")
     app.register_blueprint(forecast_bp, url_prefix="/api/forecast")
     app.register_blueprint(preprocess_bp, url_prefix="/api/preprocess")

@@ -1,7 +1,7 @@
 from flask import jsonify, request, Response, json
 import pandas as pd
 from app.services.forecast_service import forecast_time_series
-from app.utility.series import convert_series_to_list_of_dict, convert_to_flat_dict, convert_to_list_of_dict
+from app.utility.series import convert_series_to_list_of_dict, convert_to_list_of_dict
 
 def info():
     return jsonify({
@@ -13,7 +13,7 @@ def forecast():
     
     #retrieve data
     frequency = data.get('frequency')
-    steps = data.get('steps')
+    steps = int(data.get('steps'))
     forecast_method = data.get('forecast_method')
     series = data.get('series', [])
 
@@ -21,10 +21,9 @@ def forecast():
         return jsonify({"message": "The data is malformed"}), 400
 
     #series->DataFrame obj
-    series_flat_dict = convert_to_flat_dict(series)
-
-    df = pd.DataFrame.from_dict(series_flat_dict, orient='index', columns=['value'])
-
+    df = pd.DataFrame(series)
+    df.set_index('index', inplace=True)
+    
     try:
         backtest_metric, predictions, out_sample_forecast = forecast_time_series(df, frequency, steps)
         return jsonify(

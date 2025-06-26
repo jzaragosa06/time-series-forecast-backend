@@ -5,7 +5,7 @@ flask_cors
 skforecast==0.13.0
 statsmodels
 prophet
-google.generativeai
+google-genai
 ipython
 tabulate
 markdown2
