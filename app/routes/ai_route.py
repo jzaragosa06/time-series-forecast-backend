@@ -8,6 +8,3 @@ ai_bp = Blueprint('ai',__name__)
 def explain_forecast():
     return ai_controller.explainForecast()
 
-@ai_bp.get('/explain/test')
-def testGen():
-    return ai_controller.testGenerate()

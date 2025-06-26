@@ -10,12 +10,16 @@ def explainForecast():
     series_context = data.get('series_contex')
     series = data.get('series', [])
 
+    final_prompt = (
+        f"You are an AI assistant analyzing forecast results.\n"
+        f"Prompt: {prompt}\n\n"
+        f"Forecast Data:\n{json.dumps(series, indent=2)}"
+    )
+
+    response = generateResponse(final_prompt)
 
     try:
-        return jsonify({"message": "okay"})
+        return jsonify({"message": "Successfully generated", "explanation": response}), 200
     except Exception as e:
         print("error:", e)
         return jsonify({"error": str(e)}), 500
-
-def testGenerate():
-    return jsonify({"response": generateResponse()})
