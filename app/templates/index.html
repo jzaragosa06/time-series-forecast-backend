@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Time Series Forecasting API</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; color: #333; max-width: 800px; margin: 40px auto; padding: 20px;">
+
+    <h1 style="font-size: 1.8rem; margin-bottom: 0.5em;">Automated Time Series Forecasting API</h1>
+
+    <p>This is a simplified version of the backend developed for the capstone project titled <strong>"Automated Time Series Forecasting: Using Hybrid Forecasting Approach"</strong>.</p>
+    
+    <p>The original system was built using PHP's Laravel framework and Python's Flask for forecasting logic. This version separates concerns into:</p>
+    <ul style="list-style: disc; padding-left: 1.5em;">
+        <li><strong>Frontend:</strong> React.js</li>
+        <li><strong>Backend:</strong> Python Flask (lightweight and fast)</li>
+    </ul>
+
+    <h2 style="font-size: 1.4rem; margin-top: 1.5em;">Researchers</h2>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Paulet Crysline Pajo</strong> – Project Leader</li>
+        <li><strong>Jun Jun M. Zaragosa</strong> – Lead Programmer</li>
+        <li>Leynard Guinumtad</li>
+        <li>Janeil Capales</li>
+        <li>Camile Marticio</li>
+        <li>Jann Daerick Finulliar</li>
+    </ul>
+
+    <h2 style="font-size: 1.4rem; margin-top: 1.5em;">API Endpoints</h2>
+    <ul style="list-style: none; padding: 0; font-family: monospace; background: #eee; padding: 1em; border-radius: 8px;">
+        <li><strong>/</strong> – API documentation</li>
+        <li><strong>/api/system-info</strong> – Information about the running application</li>
+        <li><strong>/api/preprocess/handle-missing-values</strong> – Handle missing values in a univariate time series</li>
+        <li><strong>/api/preprocess/check-series</strong> – Validate the time series format</li>
+        <li><strong>/api/forecast</strong> – Returns forecasting model information</li>
+        <li><strong>/api/forecast/univariate</strong> – Performs n-step forecasting using a hybrid model</li>
+    </ul>
+
+</body>
+</html>
