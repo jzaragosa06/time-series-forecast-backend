@@ -7,11 +7,12 @@ from app.services.ai_service import generateResponse
 def explainForecast():
     data = request.get_json()
     prompt = data.get('prompt', '')
-    series_context = data.get('series_contex')
+    description = data.get('description')
     series = data.get('series', [])
 
     final_prompt = (
         f"You are an AI assistant analyzing forecast results.\n"
+        f"data_description: {description}.\n"
         f"Prompt: {prompt}\n\n"
         f"Forecast Data:\n{json.dumps(series, indent=2)}"
     )
